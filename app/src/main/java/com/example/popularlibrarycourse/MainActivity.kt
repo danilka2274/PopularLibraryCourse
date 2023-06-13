@@ -1,6 +1,7 @@
 package com.example.popularlibrarycourse
 
 import androidx.appcompat.app.AppCompatActivity
+import android.os.PersistableBundle
 import android.os.Bundle
 import com.example.popularlibrarycourse.databinding.ActivityMainBinding
 
@@ -16,13 +17,13 @@ class MainActivity : AppCompatActivity(), IView {
         setContentView(vb?.root)
 
         vb?.btnCounter1?.setOnClickListener {
-            presenter.count(it.id)
+            presenter.count1()
         }
         vb?.btnCounter2?.setOnClickListener {
-            presenter.count(it.id)
+            presenter.count2()
         }
         vb?.btnCounter3?.setOnClickListener {
-            presenter.count(it.id)
+            presenter.count3()
         }
 
         presenter.init()
@@ -37,23 +38,24 @@ class MainActivity : AppCompatActivity(), IView {
         vb?.btnCounter3?.text = counter
     }
 
-//    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-//        super.onSaveInstanceState(outState, outPersistentState)
-//        outState.putIntArray(ARG_COUNTERS, counters.toIntArray())
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putIntArray(ARG_COUNTERS, counters.toIntArray())
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        val countersArray = savedInstanceState.getIntArray(ARG_COUNTERS)
-//        countersArray?.toList()?.let {
-//            counters.clear()
-//            counters.addAll(it)
-//        }
-//        initViews()
-//    }
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putIntArray(ARG_COUNTERS, Model.toIntArray())
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putIntArray(ARG_COUNTERS, Model.toIntArray())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val countersArray = savedInstanceState.getIntArray(ARG_COUNTERS)
+        countersArray?.toList()?.let {
+            Model.clear()
+            Model.addAll(it)
+        }
+        presenter.init()
+    }
+}
 }
