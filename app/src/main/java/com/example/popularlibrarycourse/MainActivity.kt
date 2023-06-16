@@ -1,59 +1,41 @@
 package com.example.popularlibrarycourse
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.example.popularlibrarycourse.databinding.ActivityMainBinding
+import androidx.core.view.ActionProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
+import com.example.popularlibrarycourse.App.Navigation.navigatorHolder
+import com.example.popularlibrarycourse.App.Navigation.router
+import com.example.popularlibrarycourse.presenter.main.IMainView
+import com.example.popularlibrarycourse.presenter.main.MainPresenter
+import com.example.popularlibrarycourse.ui.IBackButtonListener
+import com.example.popularlibrarycourse.R
 
-class MainActivity : AppCompatActivity(), IView {
-    companion object {
-        const val ARG_COUNTERS = "counters"
+
+class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
+
+    private val vb: ActionProvider by viewBinding()
+
+    private val presenter by moxyPresenter { MainPresenter(router) }
+    val navigator = AppNavigator(this, R.id.container)
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
     }
-    private val presenter = Presenter(view = this)
-    private var vb: ActivityMainBinding? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
 
-        vb?.btnCounter1?.setOnClickListener {
-            presenter.count(it.id)
+    override fun onPause() {
+        super.onPause()
+        navigatorHolder.removeNavigator()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if (it is IBackButtonListener && it.backPressed()) {
+                return
+            }
         }
-        vb?.btnCounter2?.setOnClickListener {
-            presenter.count(it.id)
-        }
-        vb?.btnCounter3?.setOnClickListener {
-            presenter.count(it.id)
-        }
-
-        presenter.init()
+        presenter.back()
     }
-    override fun showCounter1(counter: String) {
-        vb?.btnCounter1?.text = counter
-    }
-    override fun showCounter2(counter: String) {
-        vb?.btnCounter2?.text = counter
-    }
-    override fun showCounter3(counter: String) {
-        vb?.btnCounter3?.text = counter
-    }
-
-//    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-//        super.onSaveInstanceState(outState, outPersistentState)
-//        outState.putIntArray(ARG_COUNTERS, counters.toIntArray())
-//    }
-//
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putIntArray(ARG_COUNTERS, counters.toIntArray())
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
-//        val countersArray = savedInstanceState.getIntArray(ARG_COUNTERS)
-//        countersArray?.toList()?.let {
-//            counters.clear()
-//            counters.addAll(it)
-//        }
-//        initViews()
-//    }
 }
