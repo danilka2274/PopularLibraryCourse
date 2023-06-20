@@ -3,6 +3,7 @@ package com.example.popularlibrarycourse.ui.extensions
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 
+
 fun View.visible(visible: () -> Boolean): View {
     visibility = if (visible()) {
         View.VISIBLE

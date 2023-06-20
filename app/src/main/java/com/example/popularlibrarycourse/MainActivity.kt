@@ -1,5 +1,6 @@
 package com.example.popularlibrarycourse
 
+import android.os.Bundle
 import androidx.core.view.ActionProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -30,6 +31,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
         navigatorHolder.removeNavigator()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
             if (it is IBackButtonListener && it.backPressed()) {
@@ -37,5 +39,10 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
             }
         }
         presenter.back()
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter.flatMap()
+        presenter.switchMap()
     }
 }
