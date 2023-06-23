@@ -1,5 +1,7 @@
-package com.example.popularlibrarycourse.ui
+package com.example.popularlibrarycourse.presenter.user
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -7,10 +9,9 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import com.example.popularlibrarycourse.App.Navigation.router
 import com.example.popularlibrarycourse.domain.model.GithubUser
-import com.example.popularlibrarycourse.domain.repository.MockUsersRepositoryImpl
+
 import com.example.popularlibrarycourse.domain.repository.UserRepositoryFactory
-import com.example.popularlibrarycourse.presenter.user.IUserView
-import com.example.popularlibrarycourse.presenter.user.UserPresenter
+
 import com.example.popularlibrarycourse.ui.extensions.showSnakeBar
 import com.example.popularlibrarycourse.R
 import com.example.popularlibrarycourse.databinding.FragmentUserBinding
@@ -45,4 +46,5 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView {
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(message)
     }
+
 }

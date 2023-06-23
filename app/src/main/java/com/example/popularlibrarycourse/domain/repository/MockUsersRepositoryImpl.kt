@@ -4,6 +4,9 @@ import com.example.popularlibrarycourse.domain.model.GithubUser
 import io.reactivex.Maybe
 import io.reactivex.Single
 
+/**
+ * Фиксированный репозиторий для отладки
+ */
 class MockUsersRepositoryImpl : IUsersRepository {
     private val users = listOf(
         GithubUser(userId = 0, login = "Иванов И.И."),

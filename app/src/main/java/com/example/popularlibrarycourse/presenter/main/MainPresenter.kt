@@ -16,55 +16,13 @@ class MainPresenter(
     private val router: Router,
 ) : MvpPresenter<IMainView>() {
 
-    companion object {
-        const val RND_BOUND = 1000
-    }
-
     private var disposables = CompositeDisposable()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(UsersScreen.create())
     }
 
     fun back() = router.exit()
-
-    private fun createJustOne() = Observable.just("1", "2", "3", "4")
-    private fun createJustTwo() = Observable.just("1", "2", "3", "4")
-
-    @SuppressLint("CheckResult")
-    fun switchMap() {
-        createJustOne()
-            .switchMap {
-                val delay = Random.nextInt(RND_BOUND).toLong()
-                return@switchMap Observable.just(it + "x").delay(
-                    delay,
-                    TimeUnit.MILLISECONDS
-                )
-            }
-            .subscribe(
-                { string -> Log.d("popLibDEBUG", "switchMap onNext: $string") },
-                { Log.d("popLibDEBUG", "onError: ${it.message}") }
-            )
-            .addTo(disposables)
-    }
-
-    @SuppressLint("CheckResult")
-    fun flatMap() {
-        createJustTwo()
-            .flatMap {
-                val delay = Random.nextInt(RND_BOUND).toLong()
-                return@flatMap Observable.just(it + "x").delay(
-                    delay,
-                    TimeUnit.MILLISECONDS
-                )
-            }
-            .subscribe(
-                { string -> Log.d("popLibDEBUG", "flatMap: onNext: $string") },
-                { Log.d("popLibDEBUG", "onError: ${it.message}") }
-            )
-            .addTo(disposables)
-    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,6 +1,6 @@
 package com.example.popularlibrarycourse.presenter.user
 
-import com.example.popularlibrarycourse.ui.UserFragment
+
 import com.github.terrakok.cicerone.Screen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
