@@ -1,5 +1,6 @@
 package com.example.popularlibrarycourse.presenter.user
 
+import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.SingleState
@@ -12,4 +13,6 @@ interface IUserView : MvpView {
     fun showUser(user: GithubUser)
 
     fun showMessage(message: String)
+
+    fun showRepo(repos: List<GitHubRepository>)
 }

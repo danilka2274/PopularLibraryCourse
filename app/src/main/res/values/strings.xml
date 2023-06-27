@@ -18,4 +18,15 @@
     <string name="permission_failed_to_read_files">Отсутствует разрешение на чтение файлов</string>
     <string name="permission_failed_to_write_files">Отсутствует разрешение на запись файлов</string>
     <string name="need_permission_write_file">Требуется разрешение для чтения файлов</string>
+    <string name="repo_name">Название репозитория</string>
+    <string name="repo_title">Репозитории:</string>
+    <string name="repository_title">Репозитории</string>
+    <string name="repo_title_text">Название репозитория</string>
+    <string name="repo_description_text">Описание репозитория</string>
+    <string name="repo_id_text">id</string>
+    <string name="repo_date_text">Дата создания</string>
+    <string name="repo_size_text">Размер</string>
+    <string name="repo_branch_text">Ветка по умолчанию</string>
+    <string name="repo_language_text">Язык</string>
+    <string name="repo_forks_count_text">Количество форков</string>
 </resources>
