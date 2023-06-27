@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/repo_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_id_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/repo_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_title_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_id" />
+
+    <TextView
+        android:id="@+id/repo_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_description_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_name" />
+
+    <TextView
+        android:id="@+id/repo_date_created"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_date_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_description" />
+
+    <TextView
+        android:id="@+id/repo_size"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_size_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_date_created" />
+
+    <TextView
+        android:id="@+id/repo_branch"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_branch_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_size" />
+
+    <TextView
+        android:id="@+id/repo_language"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_language_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_branch" />
+
+    <TextView
+        android:id="@+id/repo_forks_count"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/user_padding"
+        android:gravity="center_vertical|start"
+        android:padding="@dimen/user_padding"
+        android:text="@string/repo_forks_count_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repo_language" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

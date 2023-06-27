@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/repo_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawablePadding="@dimen/user_padding"
+    android:padding="@dimen/user_padding"
+    android:textAlignment="textStart"
+    android:textSize="@dimen/repo_name_repository_text_size"
+    tools:text="@string/repo_name" />
