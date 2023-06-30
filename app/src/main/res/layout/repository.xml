@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/repo_name"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawablePadding="@dimen/user_padding"
-    android:padding="@dimen/user_padding"
-    android:textAlignment="textStart"
-    android:textSize="@dimen/repo_name_repository_text_size"
-    tools:text="@string/repo_name" />
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/repository_icon_size"
+        android:layout_height="@dimen/repository_icon_size"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_repository"
+        android:tint="@color/purple_500" />
+
+    <TextView
+        android:id="@+id/repo_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:drawablePadding="@dimen/user_padding"
+        android:padding="@dimen/user_padding"
+        android:textColor="@color/purple_500"
+        android:textSize="@dimen/repo_name_repository_text_size"
+        tools:text="@string/repo_name" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

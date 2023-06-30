@@ -8,7 +8,15 @@ import com.example.popularlibrarycourse.presenter.IUserListPresenter
 import com.example.popularlibrarycourse.ui.IUserItemView
 import com.example.popularlibrarycourse.databinding.UserBinding
 
+/****
+Project PopularLibrary
+Package softing.ubah4ukdev.popularlibrary.presenter.users.adapter
 
+Created by Ivan Sheynmaer
+
+2021.08.05
+v1.0
+ */
 class UsersAdapter(val presenter: IUserListPresenter) :
     RecyclerView.Adapter<UsersAdapter.ItemViewHolder>() {
 

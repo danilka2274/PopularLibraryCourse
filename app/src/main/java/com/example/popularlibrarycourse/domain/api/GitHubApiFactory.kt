@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import com.example.popularlibrarycourse.BuildConfig
 
 object GitHubApiFactory {
 
@@ -16,7 +17,7 @@ object GitHubApiFactory {
 
     fun create(): GitHubApi =
         Retrofit.Builder()
-            .baseUrl("https://api.github.com")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(
                 OkHttpClient.Builder()
                     .addInterceptor(GitHubApiInterceptor)

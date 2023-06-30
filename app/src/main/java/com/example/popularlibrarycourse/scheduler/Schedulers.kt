@@ -2,6 +2,7 @@ package com.example.popularlibrarycourse.scheduler
 
 import io.reactivex.Scheduler
 
+
 interface Schedulers {
 
     /**

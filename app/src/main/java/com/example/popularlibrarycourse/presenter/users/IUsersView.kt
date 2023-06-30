@@ -7,8 +7,20 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface IUsersView : MvpView {
-    fun init()
-    fun updateList()
-    fun showMessage(message: String)
 
+    /**
+     * Инициализация RV
+     */
+    fun init()
+
+    /**
+     * Обновить список. в адаптере вызываем notifyDataSetChanged
+     */
+    fun updateList()
+
+    /**
+     * Отобразить сообщение
+     * @param message Текст сообщения
+     */
+    fun showMessage(message: String)
 }

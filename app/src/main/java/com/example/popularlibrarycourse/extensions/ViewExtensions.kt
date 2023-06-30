@@ -15,6 +15,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import kotlin.math.roundToInt
 
+
 fun View.visible(visible: () -> Boolean): View {
     visibility = if (visible()) {
         View.VISIBLE

@@ -15,12 +15,22 @@ import com.google.android.material.snackbar.Snackbar
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import com.example.popularlibrarycourse.domain.converter.ImageConverterFactory
+import com.example.popularlibrarycourse.extensions.showSnakeBar
 import com.example.popularlibrarycourse.extensions.visible
 import com.example.popularlibrarycourse.scheduler.SchedulerFactory
-import com.example.popularlibrarycourse.ui.extensions.showSnakeBar
 import com.example.popularlibrarycourse.R
 import com.example.popularlibrarycourse.databinding.FragmentConvertBinding
 
+
+/****
+Project PopularLibrary
+Package softing.ubah4ukdev.popularlibrary.ui
+
+Created by Ivan Sheynmaer
+
+2021.08.14
+v1.0
+ */
 class ConvertFragment : MvpAppCompatFragment(R.layout.fragment_convert), IConvertView {
 
     companion object {

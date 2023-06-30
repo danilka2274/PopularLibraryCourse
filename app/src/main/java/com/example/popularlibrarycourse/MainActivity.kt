@@ -29,7 +29,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
     private val presenter by moxyPresenter { MainPresenter(router) }
     private val navigator = AppNavigator(this, R.id.container)
 
-    val disposables = CompositeDisposable()
+    private val disposables = CompositeDisposable()
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -41,6 +41,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
         navigatorHolder.removeNavigator()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
             if (it is IBackButtonListener && it.backPressed()) {
@@ -75,7 +76,6 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
 
         val connect =
             NetworkStateObservable(this)
-                //.doOnNext { onNext(0, it) }
                 .publish()
 
         connect.connect()
