@@ -11,10 +11,10 @@ import com.example.popularlibrarycourse.databinding.RepositoryBinding
 class RepositoryViewHolder(view: View) : ViewHolder(view) {
     private val viewBinding: RepositoryBinding by viewBinding()
 
-    fun bind(repo: GitHubRepository, delegate: RepositoriesAdapter.Delegate?) {
+    fun bind(gitHubRepository: GitHubRepository, delegate: RepositoriesAdapter.Delegate?) {
         with(viewBinding) {
-            repoName.text = repo.name
-            root.click { delegate?.onRepoPicked(repo) }
+            repositoryName.text = gitHubRepository.name
+            root.click { delegate?.onRepoPicked(gitHubRepository) }
         }
     }
 }

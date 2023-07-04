@@ -1,6 +1,6 @@
 package com.example.popularlibrarycourse.presenter.users
 
-import android.util.Log
+
 import com.github.terrakok.cicerone.Router
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -55,8 +55,7 @@ class UsersPresenter(
             .addTo(disposables)
 
         usersListPresenter.itemClickListener = { itemView ->
-            Log.d("popLibDEBUG", itemView.toString())
-            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].login).create())
+            router.navigateTo(UserScreen(usersListPresenter.users[itemView.pos].login))
         }
     }
 
@@ -65,8 +64,4 @@ class UsersPresenter(
         disposables.dispose()
     }
 
-    fun backPressed(): Boolean {
-        router.exit()
-        return true
-    }
 }

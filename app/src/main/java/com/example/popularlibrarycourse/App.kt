@@ -1,29 +1,25 @@
 package com.example.popularlibrarycourse
 
-import android.app.Application
-import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import com.example.popularlibrarycourse.domain.di.DaggerApplicationComponent
+import com.example.popularlibrarycourse.scheduler.DefaultSchedulers
 
 
-class App : Application() {
+class App : DaggerApplication() {
 
-    object ContextHolder {
-        lateinit var context: Context
-    }
+    override fun applicationInjector(): AndroidInjector<App> {
+        val appComponent = DaggerApplicationComponent
+            .builder()
+            .withContext(applicationContext)
+            .build()
 
-    companion object Navigation {
+        val cicerone = Cicerone.create()
+        appComponent.withNavigatorHolder(cicerone.getNavigatorHolder())
+        appComponent.withRouter(cicerone.router)
+        appComponent.withSchedulers(DefaultSchedulers())
 
-        private val cicerone: Cicerone<Router> by lazy {
-            Cicerone.create()
-        }
-
-        val navigatorHolder = cicerone.getNavigatorHolder()
-        val router = cicerone.router
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        ContextHolder.context = applicationContext
+        return appComponent
     }
 }

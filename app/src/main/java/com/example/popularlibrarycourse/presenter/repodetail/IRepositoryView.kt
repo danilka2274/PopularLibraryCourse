@@ -1,8 +1,8 @@
 package com.example.popularlibrarycourse.presenter.repodetail
 
+import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.SingleState
-import com.example.popularlibrarycourse.domain.model.GitHubRepository
 
 
 @SingleState

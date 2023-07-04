@@ -1,10 +1,13 @@
 package com.example.popularlibrarycourse.presenter.user
 
 
-import com.github.terrakok.cicerone.Screen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 
-class UserScreen(private val login: String) {
-    fun create(): Screen = FragmentScreen { UserFragment.newInstance(login = login) }
+class UserScreen(private val login: String) : FragmentScreen {
+
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        UserFragment.newInstance(login = login)
 }

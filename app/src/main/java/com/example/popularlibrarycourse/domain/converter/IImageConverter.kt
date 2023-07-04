@@ -4,6 +4,7 @@ import android.net.Uri
 import io.reactivex.Single
 import java.io.File
 
+
 interface IImageConverter {
 
     /**

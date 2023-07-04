@@ -35,4 +35,3 @@ interface IRepository {
      */
     fun fetchUserRepositoriesByLogin(login: String): Observable<List<GitHubRepository>>
 }
-

@@ -1,6 +1,5 @@
 package com.example.popularlibrarycourse.presenter.user
 
-
 import android.annotation.SuppressLint
 import com.github.terrakok.cicerone.Router
 import io.reactivex.disposables.CompositeDisposable
@@ -21,6 +20,7 @@ class UserPresenter(
 
     private var disposables = CompositeDisposable()
 
+
     @SuppressLint("CheckResult")
     override fun onFirstViewAttach() {
         repository
@@ -31,7 +31,7 @@ class UserPresenter(
                 viewState::showUser
             ) { throwable ->
                 viewState.showMessage(message = throwable.message.toString())
-                router.replaceScreen(UsersScreen.create())
+                router.backTo(UsersScreen)
             }.addTo(disposables)
 
         repository
@@ -39,10 +39,9 @@ class UserPresenter(
             .observeOn(schedulers.main())
             .subscribeOn(schedulers.background())
             .subscribe(
-                viewState::showRepo
+                viewState::showRepositories
             ) { throwable ->
                 viewState.showMessage(message = throwable.message.toString())
-                router.replaceScreen(UsersScreen.create())
             }.addTo(disposables)
     }
 
@@ -51,6 +50,6 @@ class UserPresenter(
     }
 
     fun setTitle() {
-        viewState.setTitle(login)
+        viewState.setTitle(login.uppercase())
     }
 }

@@ -1,11 +1,13 @@
 package com.example.popularlibrarycourse.domain.repository
 
-import io.reactivex.Maybe
-import io.reactivex.Observable
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
+import io.reactivex.Maybe
+import io.reactivex.Observable
+import javax.inject.Inject
 
-class MockRepositoryImpl : IRepository {
+
+class MockRepositoryImpl @Inject constructor() : IRepository {
 
     private val users = listOf(
         GithubUser(userId = "0", login = "Иванов И.И.", "", ""),
@@ -98,7 +100,8 @@ class MockRepositoryImpl : IRepository {
     override fun fetchUsers(): Observable<List<GithubUser>> = Observable.just(users)
 
     override fun fetchUserByLogin(login: String): Maybe<GithubUser> =
-        users.firstOrNull { user -> user.login == login }
+        users
+            .firstOrNull { user -> user.login == login }
             ?.let { user -> Maybe.just(user) }
             ?: Maybe.error(Exception("Выбран несуществующий пользователь."))
 
@@ -106,7 +109,11 @@ class MockRepositoryImpl : IRepository {
         login: String,
         repositoryName: String
     ): Maybe<GitHubRepository> =
-        repositories.firstOrNull { repository -> (repository.login == login).and(repository.name == repositoryName) }
+        repositories
+            .firstOrNull { repository ->
+                (repository.login == login)
+                    .and(repository.name == repositoryName)
+            }
             ?.let { repository -> Maybe.just(repository) }
             ?: Maybe.error(Exception("Выбран несуществующий репозиторий."))
 

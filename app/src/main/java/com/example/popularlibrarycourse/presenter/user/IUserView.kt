@@ -1,12 +1,13 @@
 package com.example.popularlibrarycourse.presenter.user
 
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.StateStrategyType
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
-import moxy.MvpView
-import moxy.viewstate.strategy.alias.SingleState
 
 
-@SingleState
+@StateStrategyType(AddToEndSingleStrategy::class)
 interface IUserView : MvpView {
 
     /**
@@ -23,9 +24,9 @@ interface IUserView : MvpView {
 
     /**
      * Отобразить список репозиториев в RV
-     * @param repos Список репозиториев
+     * @param repositories Список репозиториев
      */
-    fun showRepo(repos: List<GitHubRepository>)
+    fun showRepositories(repositories: List<GitHubRepository>)
 
     /**
      * Установить заголовок

@@ -1,21 +1,30 @@
-package com.example.popularlibrarycourse.domain.api
+package com.example.popularlibrarycourse.domain.di.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import com.example.popularlibrarycourse.domain.api.GitHubApi
+import com.example.popularlibrarycourse.domain.api.GitHubApiInterceptor
 import com.example.popularlibrarycourse.BuildConfig
+import javax.inject.Singleton
 
-object GitHubApiFactory {
+
+@Module
+class GitHubApiModule {
 
     private val gson: Gson =
         GsonBuilder()
             .create()
 
-    fun create(): GitHubApi =
+    @Singleton
+    @Provides
+    fun provideGitHubApi(): GitHubApi =
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(

@@ -1,20 +1,12 @@
 package com.example.popularlibrarycourse.domain.storage
 
 import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Single
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
+import io.reactivex.Completable
+import io.reactivex.Single
 
-/****
-Project PopularLibrary
-Package softing.ubah4ukdev.popularlibrary.domain.storage.user
 
-Created by Ivan Sheynmaer
-
-2021.08.17
-v1.0
- */
 @Dao
 interface GitHubDao {
 
@@ -23,7 +15,7 @@ interface GitHubDao {
      * @return List of GithubUser
      */
     @Query("SELECT * FROM github_user")
-    fun fetchUsers(): Single<List<GithubUser>>
+    fun users(): Single<List<GithubUser>>
 
     /**
      * Получить пользователя по логину из базы
@@ -31,7 +23,7 @@ interface GitHubDao {
      * @return GithubUser
      */
     @Query("SELECT * FROM github_user WHERE login LIKE :login LIMIT 1")
-    fun fetchUserByLogin(login: String): Single<GithubUser>
+    fun userByLogin(login: String): Single<GithubUser>
 
     /**
      * Сохранить список пользователей в базу
@@ -51,19 +43,19 @@ interface GitHubDao {
 
     /**
      * Сохранить список репозиториев в базу
-     * @param repositories Список репозиториев
+     * @param repos Список репозиториев
      * @return List of GitHubRepository
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun retainRepositories(repositories: List<GitHubRepository>): Completable
+    fun retainRepositories(repos: List<GitHubRepository>): Completable
 
     /**
      * Обновить репозиторий в базе
-     * @param repository Репозиторий
+     * @param repo Репозиторий
      * @return GitHubRepository
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun retainRepository(repository: GitHubRepository): Completable
+    fun retainRepository(repo: GitHubRepository): Completable
 
     /**
      * Получить список репозиториев пользователя из базы
@@ -71,14 +63,14 @@ interface GitHubDao {
      * @return List of GitHubRepository
      */
     @Query("SELECT * FROM github_user_repository WHERE login = :login")
-    fun fetchUserRepositories(login: String): Single<List<GitHubRepository>>
+    fun repoList(login: String): Single<List<GitHubRepository>>
 
     /**
      * Получить репозиторий пользователя по логину и названию из базы
      * @param login Логин пользователя
-     * @param repositoryName Название репозитория
+     * @param name Название репозитория
      * @return GitHubRepository
      */
-    @Query("SELECT * FROM github_user_repository WHERE login = :login AND name = :repositoryName LIMIT 1")
-    fun fetchRepositoryInfo(login: String, repositoryName: String): Single<GitHubRepository>
+    @Query("SELECT * FROM github_user_repository WHERE login = :login AND name = :name LIMIT 1")
+    fun repoInfo(login: String, name: String): Single<GitHubRepository>
 }

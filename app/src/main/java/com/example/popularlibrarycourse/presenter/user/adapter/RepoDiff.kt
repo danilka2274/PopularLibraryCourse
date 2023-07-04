@@ -1,9 +1,9 @@
 package com.example.popularlibrarycourse.presenter.user.adapter
 
-
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
+
 
 
 object RepoDiff : DiffUtil.ItemCallback<GitHubRepository>() {

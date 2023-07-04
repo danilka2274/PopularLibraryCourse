@@ -5,39 +5,49 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.popularlibrarycourse.App
+import com.github.terrakok.cicerone.Router
+import moxy.ktx.moxyPresenter
+import com.example.popularlibrarycourse.domain.repository.IRepository
+import com.example.popularlibrarycourse.extensions.showSnakeBar
+import com.example.popularlibrarycourse.presenter.abs.AbsFragment
+import com.example.popularlibrarycourse.presenter.users.adapter.UsersAdapter
+import com.example.popularlibrarycourse.scheduler.Schedulers
+import com.example.popularlibrarycourse.ui.IBackButtonListener
 import com.example.popularlibrarycourse.R
 import com.example.popularlibrarycourse.databinding.FragmentUsersBinding
-import com.example.popularlibrarycourse.domain.repository.RepositoryFactory
-import com.example.popularlibrarycourse.extensions.showSnakeBar
-import com.example.popularlibrarycourse.presenter.users.adapter.UsersAdapter
-import com.example.popularlibrarycourse.scheduler.SchedulerFactory
-import com.example.popularlibrarycourse.ui.IBackButtonListener
-import moxy.MvpAppCompatFragment
-import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 
-class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
-    IBackButtonListener {
+class UsersFragment : AbsFragment(R.layout.fragment_users), IUsersView
+{
     companion object {
         fun newInstance(): Fragment = UsersFragment()
     }
 
+    @Inject
+    lateinit var schedulers: Schedulers
+
+    @Inject
+    lateinit var Repository: IRepository
+
+    @Inject
+    lateinit var router: Router
+
     val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            repository = RepositoryFactory.create(),
-            router = App.router,
-            schedulers = SchedulerFactory.create()
+            repository = Repository,
+            router = router,
+            schedulers = schedulers
         )
     }
-    var adapter: UsersAdapter? = null
+    var usersAdapter: UsersAdapter? = null
 
     private val vb: FragmentUsersBinding by viewBinding()
 
     override fun init() {
         vb.rvUsers.layoutManager = LinearLayoutManager(context)
-        adapter = UsersAdapter(presenter = presenter.usersListPresenter)
-        vb.rvUsers.adapter = adapter
+        usersAdapter = UsersAdapter(presenter = presenter.usersListPresenter)
+        vb.rvUsers.adapter = usersAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,12 +56,11 @@ class UsersFragment : MvpAppCompatFragment(R.layout.fragment_users), IUsersView,
     }
 
     override fun updateList() {
-        adapter?.notifyDataSetChanged()
+        usersAdapter?.notifyDataSetChanged()
     }
 
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(message)
     }
 
-    override fun backPressed() = presenter.backPressed()
 }

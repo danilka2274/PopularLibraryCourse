@@ -9,6 +9,7 @@ import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 import io.reactivex.disposables.Disposable
 
+
 class NetworkStateObservable(private val context: Context) : Observable<NetworkState>() {
 
     override fun subscribeActual(observer: Observer<in NetworkState>) {

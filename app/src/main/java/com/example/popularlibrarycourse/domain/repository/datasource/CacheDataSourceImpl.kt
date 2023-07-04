@@ -2,12 +2,16 @@ package com.example.popularlibrarycourse.domain.repository.datasource
 
 import io.reactivex.Maybe
 import io.reactivex.Single
+import com.example.popularlibrarycourse.domain.di.Persisted
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
 import com.example.popularlibrarycourse.domain.storage.GitHubStorage
+import javax.inject.Inject
 
 
-class CacheDataSourceImpl(private val gitHubStorage: GitHubStorage) :
+class CacheDataSourceImpl @Inject constructor(
+    @Persisted private val gitHubStorage: GitHubStorage
+) :
     ICacheDataSource {
 
     override fun retainUsers(users: List<GithubUser>): Single<List<GithubUser>> =
@@ -33,34 +37,36 @@ class CacheDataSourceImpl(private val gitHubStorage: GitHubStorage) :
             .andThen(fetchUserRepositories(login))
 
     override fun retainRepository(
-        repository: GitHubRepository,
+        reposizoty: GitHubRepository,
         login: String,
         repositoryName: String
     ): Single<GitHubRepository> =
         gitHubStorage
             .gitHubUserDao()
-            .retainRepository(repository)
+            .retainRepository(reposizoty)
             .andThen(fetchRepositoryInfo(login, repositoryName))
 
     override fun fetchUsers(): Single<List<GithubUser>> =
         gitHubStorage
             .gitHubUserDao()
-            .fetchUsers()
+            .users()
 
     override fun fetchUserByLogin(login: String): Maybe<GithubUser> =
         gitHubStorage
             .gitHubUserDao()
-            .fetchUserByLogin(login)
+            .userByLogin(login)
             .toMaybe()
-
 
     override fun fetchUserRepositories(login: String): Single<List<GitHubRepository>> =
         gitHubStorage
             .gitHubUserDao()
-            .fetchUserRepositories(login)
+            .repoList(login)
 
-    override fun fetchRepositoryInfo(login: String, repositoryName: String): Single<GitHubRepository> =
+    override fun fetchRepositoryInfo(
+        login: String,
+        repositoryName: String
+    ): Single<GitHubRepository> =
         gitHubStorage
             .gitHubUserDao()
-            .fetchRepositoryInfo(login, repositoryName)
+            .repoInfo(login, repositoryName)
 }

@@ -1,9 +1,11 @@
 package com.example.popularlibrarycourse.presenter.users
 
-
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 
-object UsersScreen {
-    fun create() = FragmentScreen { UsersFragment.newInstance() }
+object UsersScreen : FragmentScreen {
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        UsersFragment.newInstance()
 }

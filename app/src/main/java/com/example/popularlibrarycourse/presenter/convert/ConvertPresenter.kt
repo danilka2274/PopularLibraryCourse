@@ -10,6 +10,15 @@ import com.example.popularlibrarycourse.scheduler.Schedulers
 import java.io.File
 
 
+/****
+Project PopularLibrary
+Package softing.ubah4ukdev.popularlibrary.presenter.convert
+
+Created by Ivan Sheynmaer
+
+2021.08.14
+v1.0
+ */
 class ConvertPresenter(
     private val imageConverter: IImageConverter,
     private val schedulers: Schedulers

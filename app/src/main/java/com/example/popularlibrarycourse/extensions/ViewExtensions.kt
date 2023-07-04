@@ -26,7 +26,7 @@ fun View.visible(visible: () -> Boolean): View {
 }
 
 //Показать SnackBar c передачей текста в виде String
-fun View.showSnakeBar(text: String, length: Int = Snackbar.LENGTH_INDEFINITE) {
+fun View.showSnakeBar(text: String, length: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, text, length).show()
 }
 

@@ -2,13 +2,14 @@ package com.example.popularlibrarycourse.domain.repository
 
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
-import com.example.popularlibrarycourse.domain.repository.datasource.ICacheDataSource
-import com.example.popularlibrarycourse.domain.repository.datasource.INetworkDataSource
 import io.reactivex.Maybe
 import io.reactivex.Observable
+import com.example.popularlibrarycourse.domain.repository.datasource.ICacheDataSource
+import com.example.popularlibrarycourse.domain.repository.datasource.INetworkDataSource
+import javax.inject.Inject
 
 
-class RepositoryImpl(
+class RepositoryImpl @Inject constructor(
     private val cloud: INetworkDataSource,
     private val cache: ICacheDataSource,
 ) : IRepository {

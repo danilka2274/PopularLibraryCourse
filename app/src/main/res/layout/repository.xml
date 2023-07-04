@@ -14,7 +14,7 @@
         android:tint="@color/purple_500" />
 
     <TextView
-        android:id="@+id/repo_name"
+        android:id="@+id/repository_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"

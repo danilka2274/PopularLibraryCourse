@@ -3,33 +3,35 @@ package com.example.popularlibrarycourse
 import android.os.Bundle
 import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.example.popularlibrarycourse.App.Navigation.navigatorHolder
-import com.example.popularlibrarycourse.App.Navigation.router
-import com.example.popularlibrarycourse.databinding.ActivityMainBinding
-import com.example.popularlibrarycourse.domain.network.NetworkState
-import com.example.popularlibrarycourse.domain.network.NetworkStateObservable
-import com.example.popularlibrarycourse.presenter.convert.ConvertScreen
-import com.example.popularlibrarycourse.presenter.main.IMainView
-import com.example.popularlibrarycourse.presenter.main.MainPresenter
-import com.example.popularlibrarycourse.presenter.users.UsersScreen
-import com.example.popularlibrarycourse.ui.IBackButtonListener
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import moxy.MvpAppCompatActivity
-import moxy.ktx.moxyPresenter
+import com.example.popularlibrarycourse.domain.network.NetworkState
+import com.example.popularlibrarycourse.domain.network.NetworkStateObservable
+import com.example.popularlibrarycourse.presenter.abs.AbsActivity
+import com.example.popularlibrarycourse.presenter.convert.ConvertScreen
+import com.example.popularlibrarycourse.presenter.users.UsersScreen
+import com.example.popularlibrarycourse.databinding.ActivityMainBinding
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-
-class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
+class MainActivity : AbsActivity(R.layout.activity_main) {
 
     private val vb: ActivityMainBinding by viewBinding()
 
-    private val presenter by moxyPresenter { MainPresenter(router) }
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var router: Router
+
+    //private val presenter by moxyPresenter { MainPresenter(router) }
     private val navigator = AppNavigator(this, R.id.container)
 
-    private val disposables = CompositeDisposable()
+    val disposables = CompositeDisposable()
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -41,38 +43,31 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main), IMainView {
         navigatorHolder.removeNavigator()
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        supportFragmentManager.fragments.forEach {
-            if (it is IBackButtonListener && it.backPressed()) {
-                return
-            }
-        }
-        presenter.back()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        init()
+        savedInstanceState ?: let {
+            router.newRootScreen(UsersScreen)
+            init()
+        }
     }
 
     private fun init() {
         vb.navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_users -> {
-                    router.replaceScreen(UsersScreen.create())
+                    router.replaceScreen(UsersScreen)
                     true
                 }
                 R.id.navigation_convert -> {
-                    router.replaceScreen(ConvertScreen().create())
+                    router.replaceScreen(ConvertScreen())
                     true
                 }
                 else -> false
             }
         }
 
-        router.replaceScreen(UsersScreen.create())
+        router.replaceScreen(UsersScreen)
 
         val connect =
             NetworkStateObservable(this)

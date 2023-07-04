@@ -1,8 +1,9 @@
 package com.example.popularlibrarycourse.domain.repository.datasource
 
-import io.reactivex.Single
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
+import io.reactivex.Single
+
 
 
 interface ICacheDataSource: INetworkDataSource {
@@ -31,9 +32,9 @@ interface ICacheDataSource: INetworkDataSource {
 
     /**
      * Обновить репозиторий
-     * @param repository Репозиторий
+     * @param reposizoty Репозиторий
      * @param login Логин пользователя
      * @return GitHubRepository
      */
-    fun retainRepository(repository: GitHubRepository, login:String, repositoryName:String): Single<GitHubRepository>
+    fun retainRepository(reposizoty: GitHubRepository, login:String, repositoryName:String): Single<GitHubRepository>
 }

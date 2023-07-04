@@ -1,6 +1,5 @@
 package com.example.popularlibrarycourse.presenter
 
-
 import com.example.popularlibrarycourse.ui.IUserItemView
 
 

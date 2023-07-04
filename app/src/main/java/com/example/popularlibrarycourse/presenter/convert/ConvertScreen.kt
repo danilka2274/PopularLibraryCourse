@@ -1,9 +1,20 @@
 package com.example.popularlibrarycourse.presenter.convert
 
-import com.github.terrakok.cicerone.Screen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
-class ConvertScreen() {
+/****
+Project PopularLibrary
+Package softing.ubah4ukdev.popularlibrary.presenter.convert
 
-    fun create(): Screen = FragmentScreen { ConvertFragment.newInstance() }
+Created by Ivan Sheynmaer
+
+2021.08.14
+v1.0
+ */
+class ConvertScreen() : FragmentScreen {
+
+    override fun createFragment(factory: FragmentFactory): Fragment =
+        ConvertFragment.newInstance()
 }

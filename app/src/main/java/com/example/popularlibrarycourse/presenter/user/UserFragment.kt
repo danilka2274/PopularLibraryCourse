@@ -4,24 +4,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import moxy.MvpAppCompatFragment
+import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
-import com.example.popularlibrarycourse.App.Navigation.router
 import com.example.popularlibrarycourse.domain.model.GitHubRepository
 import com.example.popularlibrarycourse.domain.model.GithubUser
-import com.example.popularlibrarycourse.domain.repository.RepositoryFactory
+import com.example.popularlibrarycourse.domain.repository.IRepository
 import com.example.popularlibrarycourse.extensions.arguments
 import com.example.popularlibrarycourse.extensions.setStartDrawableCircleImageFromUri
 import com.example.popularlibrarycourse.extensions.showSnakeBar
 import com.example.popularlibrarycourse.extensions.visible
+import com.example.popularlibrarycourse.presenter.abs.AbsFragment
 import com.example.popularlibrarycourse.presenter.repodetail.RepositoryScreen
 import com.example.popularlibrarycourse.presenter.user.adapter.RepositoriesAdapter
-import com.example.popularlibrarycourse.scheduler.SchedulerFactory
+import com.example.popularlibrarycourse.scheduler.Schedulers
 import com.example.popularlibrarycourse.R
 import com.example.popularlibrarycourse.databinding.FragmentUserBinding
+import javax.inject.Inject
 
 
-class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
+class UserFragment : AbsFragment(R.layout.fragment_user), IUserView,
     RepositoriesAdapter.Delegate {
     companion object {
 
@@ -32,6 +33,15 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
             .arguments(ARG_USER to login)
     }
 
+    @Inject
+    lateinit var schedulers: Schedulers
+
+    @Inject
+    lateinit var repository: IRepository
+
+    @Inject
+    lateinit var router: Router
+
     private val vb: FragmentUserBinding by viewBinding()
     private val repositoriesAdapter = RepositoriesAdapter(delegate = this)
 
@@ -41,8 +51,8 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
         UserPresenter(
             login = login ?: ERROR_VALUE,
             router = router,
-            repository = RepositoryFactory.create(),
-            schedulers = SchedulerFactory.create()
+            repository = repository,
+            schedulers = schedulers
         )
     }
 
@@ -51,34 +61,34 @@ class UserFragment : MvpAppCompatFragment(R.layout.fragment_user), IUserView,
 
         presenter.setTitle()
 
-        vb.repoTitle.visible { false }
-        vb.rvRepos.adapter = repositoriesAdapter
+        vb.repositoryText.visible { false }
+        vb.rvRepositories.adapter = repositoriesAdapter
     }
 
     override fun showUser(user: GithubUser) {
-        vb.tvLogin.text = user.login.uppercase()
-        vb.tvLogin.setStartDrawableCircleImageFromUri(user.avatar)
+        vb.login.text = user.login.uppercase()
+        vb.login.setStartDrawableCircleImageFromUri(user.avatar)
     }
 
     override fun showMessage(message: String) {
         vb.root.showSnakeBar(message)
     }
 
-    override fun showRepo(repos: List<GitHubRepository>) {
-        vb.repoTitle.visible { true }
-        repositoriesAdapter.submitList(repos)
+    override fun showRepositories(repositories: List<GitHubRepository>) {
+        vb.repositoryText.visible { true }
+        repositoriesAdapter.submitList(repositories)
     }
 
     override fun setTitle(title: String) {
-        requireActivity().title = title.uppercase()
+        requireActivity().title = title
     }
 
     override fun onRepoPicked(repository: GitHubRepository) {
         login?.let {
-            router.replaceScreen(
+            router.navigateTo(
                 RepositoryScreen(
                     repository
-                ).create()
+                )
             )
         }
     }
